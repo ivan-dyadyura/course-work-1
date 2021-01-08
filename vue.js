@@ -14,7 +14,7 @@ const App = {
         {title: 'Composition', text: 'Одним из наиболее важных обновлений в Vue 3 является появление альтернативного синтаксиса Composition API. В этом блоке вы узнаете все, чтобы полностью пользоваться данными синтаксисом на практических примерах. Помимо этого вы узнаете как работать совместно с Vue Router и Vuex.'},
       ],
       isEnd: false,
-      isValid: true
+      isValid: true,
     }
   },
   methods: {
@@ -40,13 +40,13 @@ const App = {
       // когда нажимаем на определенный шаг
       if (!this.isEnd) {
         this.activeIndex = idx
-      } else if (this.isEnd && this.isValid) {
+      } else if (this.isEnd) {
           this.isValid = false
-          setTimeout(() => {
-            this.isValid = true
-          }, 3500)
+          const time = setTimeout(() => {
+              this.isValid = true
+          }, 1500)
       }
-    }
+    },
   },
   computed: {
     // тут стоит определить несколько свойств:
