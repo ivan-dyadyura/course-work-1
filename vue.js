@@ -15,6 +15,7 @@ const App = {
       ],
       isEnd: false,
       isValid: true,
+      timer: null
     }
   },
   methods: {
@@ -30,21 +31,22 @@ const App = {
     },
     nextOfFinish() {
       // кнопка вперед или закончить
-      if (!this.isLast && !this.isEnd) {
-        this.activeIndex++
-      } else if (this.isLast) {
+      if (this.isLast) {
         this.isEnd = true
+      } else {
+        this.activeIndex++
       }
     },
     setActive(idx) {
       // когда нажимаем на определенный шаг
-      if (!this.isEnd) {
+      if (this.isEnd) {
+        this.isValid = false
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.isValid = true
+        }, 1500)
+      } else {
         this.activeIndex = idx
-      } else if (this.isEnd) {
-          this.isValid = false
-          const time = setTimeout(() => {
-              this.isValid = true
-          }, 1500)
       }
     },
   },
@@ -57,7 +59,7 @@ const App = {
       return this.activeIndex === 0 ? true : false
     },
     isLast() {
-      return this.activeIndex === this.steps.length - 1 ? true : false
+      return this.activeIndex === this.steps.length - 1
     },
     btnText() {
       return this.isLast ? 'Закончить' : 'Вперед'
